@@ -1,0 +1,45 @@
+name: CI/CD Pipeline for Login and Registration Pages with Forgot password and Reset Password
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run linting checks (Optional but recommended for code quality)
+      - name: Run linting
+        run: npm run lint
+
+      # Run tests (unit tests)
+      - name: Run tests
+        run: npm test
+
+      # Build the Next.js project
+      - name: Build Next.js project
+        run: npm run build
+
+      # Deploy the project to Vercel (or any platform)
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          npm install -g vercel
+          vercel --prod --token $VERCEL_TOKEN
