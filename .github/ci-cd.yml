@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Login and Registration Pages with Forgot password and R
 on:
   push:
     branches:
-      - main
+      - "**"
 
 jobs:
   build:
